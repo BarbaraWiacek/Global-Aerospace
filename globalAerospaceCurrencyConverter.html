@@ -16,12 +16,12 @@
 		}
 		input {
 			padding: 0 5px;
-			width: 220px;
+			width: 250px;
 		}
 		select {
 			padding: 5px;
 			margin-bottom: 5px;
-			width: 220px;
+			width: 250px;
 		}
 		.sidebar {
 		   background-color: lightgrey;
@@ -53,13 +53,13 @@
 		    color: #1c94c4;
 		    text-decoration: none;
 		    border: 1px solid #cccccc;
-    		background: #f6f6f6 url(/themeroller/images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
+    		background: #f6f6f6 url(http://download.jqueryui.com/themeroller/images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
     		font-weight: bold;
     		padding: .4em 1em;
 		}
 		.ui-button:hover, .ui-button:focus {
 		    border: 1px solid #fbcb09;
-		    background: #fdf5ce url(/themeroller/images/ui-bg_glass_100_fdf5ce_1x400.png) 50% 50% repeat-x;
+		    background: #fdf5ce url(http://download.jqueryui.com/themeroller/images/ui-bg_glass_100_fdf5ce_1x400.png) 50% 50% repeat-x;
 		    font-weight: bold;
 		    color: #c77405;
 		}
@@ -249,13 +249,13 @@
 
 			function convertOld2NewCurrency(currencyFromAmt) {
 				currCurrFrom = document.getElementById("selectCurrencyFrom").value;
-				currCurrTo = document.getElementById("selectCurrencyTo").value
+				currCurrTo = document.getElementById("selectCurrencyTo").value;
 				addConversionToBigObj()
-				var rateToUse = bigRateObj.historicRates[selectedDate][currCurrFrom][currCurrTo]
-				var conversionResult = Number(Math.round(currencyFromAmt * 1 * rateToUse + 'e2') + 'e-2').toFixed(2);
-				if (isNaN(conversionResult)) {
-					alert("Please Select two currencies")
+				if (currCurrTo.length !== 3 || currCurrFrom.length !== 3) {
+					alert("Please Select two currencies");
 				} else {
+					var rateToUse = bigRateObj.historicRates[selectedDate][currCurrFrom][currCurrTo];
+					var conversionResult = Number(Math.round(currencyFromAmt * 1 * rateToUse + 'e2') + 'e-2').toFixed(2);
 					document.getElementById("divConversionResult").innerText = "Conversion Rate is:    " + rateToUse;
 					document.getElementById("currencyToTextInput").value = conversionResult;
 				}
@@ -266,7 +266,9 @@
 				currCurrFrom = document.getElementById("selectCurrencyFrom").value;
 				currCurrTo = document.getElementById("selectCurrencyTo").value
 				var rateToUse = bigRateObj.historicRates[selectedDate][currCurrFrom][currCurrTo]
-				document.getElementById("divConversionResult").innerText = "Conversion Rate is:    " + rateToUse;
+				if (rateToUse !== undefined) {
+					document.getElementById("divConversionResult").innerText = "Conversion Rate is:    " + rateToUse;
+				}
 			}
 
 			function addConversionToBigObj() {
